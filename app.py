@@ -62,23 +62,24 @@ def getAlldata():
     data = df.to_json(orient ='table')
     return data
 
+# Commented out due to sr_hex.csv being to large for free public gihub repository with out large file support
+# Kept here for further local development and use
+# @app.route('/api/getDirectoratedata', methods=['GET'])
+# def getDirectoratedata():  
+#     df = getBigCSVData()
+#     data = pd.DataFrame(df['directorate'].unique()).to_json(orient ='table')
+#     return data
 
-@app.route('/api/getDirectoratedata', methods=['GET'])
-def getDirectoratedata():  
-    df = getBigCSVData()
-    data = pd.DataFrame(df['directorate'].unique()).to_json(orient ='table')
-    return data
-
-
-
-@app.route('/api/getDepartmentdata', methods=['GET'])
-def getDepartmentdata():  
-    query = request.args.getlist('directorate')
-    print(query[0])
-    df = getBigCSVData()
-    df2 = df.query('directorate=="' + query[0] + '"').copy()
-    data = pd.DataFrame(df2.department.unique()).to_json(orient ='table')
-    return data
+# Commented out due to sr_hex.csv being to large for free public gihub repository with out large file support
+# Kept here for further local development and use
+# @app.route('/api/getDepartmentdata', methods=['GET'])
+# def getDepartmentdata():  
+#     query = request.args.getlist('directorate')
+#     print(query[0])
+#     df = getBigCSVData()
+#     df2 = df.query('directorate=="' + query[0] + '"').copy()
+#     data = pd.DataFrame(df2.department.unique()).to_json(orient ='table')
+#     return data
 
 @app.route('/api/getgeojsondata', methods=['GET'])
 def getgeoJsonData():
@@ -101,22 +102,26 @@ def convert_csv_json(csvFilePath):
             data[key] = rows
     return data
 
-def getBigCSVData():
-     # Get the csv
-    df = pd.read_csv('Data/sr_hex.csv')
-    df = df.drop(columns='notification_number')
-    df = df.drop(columns='reference_number')
-    return df
+# Commented out due to sr_hex.csv being to large for free public gihub repository with out large file support
+# Kept here for further local development and use
+# def getBigCSVData():
+#      # Get the csv
+#     df = pd.read_csv('Data/sr_hex.csv')
+#     df = df.drop(columns='notification_number')
+#     df = df.drop(columns='reference_number')
+#     return df
 
 def getCSVData():
     # Get the filtered csv
-    # It has been filterd based on h3_level8_index != "0"
-    # It has been filterd based on directorate = "WATER AND SANITATION"
-    # It has been filterd based on department = "Distribution Services"
+    # It has been filtered based on h3_level8_index != "0"
+    # It has been filtered based on directorate = "WATER AND SANITATION"
+    # It has been filtered based on department = "Distribution Services"
     # This is to limit the data to infrastructure related service requests
     df = pd.read_csv('Data/sr_hex_filtered.csv')
+    # Removed no longer needed columns
     df = df.drop(columns='notification_number')
     df = df.drop(columns='reference_number')
+    # Removed no longer needed columns due to previous filtering
     df = df.drop(columns='directorate')
     df = df.drop(columns='department')
     return df
