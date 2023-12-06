@@ -1,0 +1,7 @@
+flask
+matplotlib.pyplot
+numpy
+pandas
+csv
+json
+flask_cors
