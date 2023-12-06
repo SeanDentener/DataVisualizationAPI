@@ -2,6 +2,4 @@ flask
 matplotlib
 numpy
 pandas
-csv
-json
 flask_cors
