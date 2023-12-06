@@ -8,8 +8,8 @@ from flask_cors import CORS
 
  
 # constants
-HOST = '0.0.0.0'
-PORT = 8081
+HOST = 'datavisualizationapi.azurewebsites.net'
+PORT = 80
 
 # initialize flask application
 app = Flask(__name__)
