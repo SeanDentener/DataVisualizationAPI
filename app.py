@@ -116,6 +116,7 @@ def getCSVData():
     # It has been filtered based on h3_level8_index != "0"
     # It has been filtered based on directorate = "WATER AND SANITATION"
     # It has been filtered based on department = "Distribution Services"
+    # The filtered csv file was produced using the Jupyter notebook ProcessData.ipynb
     # This is to limit the data to infrastructure related service requests
     df = pd.read_csv('Data/sr_hex_filtered.csv')
     # Removed no longer needed columns
