@@ -43,7 +43,7 @@ def GetSRData():
 def getsuburbcountdata():  
     df = getCSVData()
     #Group by and count
-    df2 = df.groupby('official_suburb').agg(Count=('official_suburb','count')).reset_index().copy()
+    df2 = df.groupby('official_suburb','h3_level8_index').agg(Count=('official_suburb','count')).reset_index().copy()
     data = df2.to_json(orient ='table')
     return data
 
