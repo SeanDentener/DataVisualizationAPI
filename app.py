@@ -56,11 +56,22 @@ def getHexcountdata():
     data = df2.to_json(orient ='table')
     return data
 
-@app.route('/api/getAlldata', methods=['GET'])
-def getAlldata():  
-    df = getBigCSVData()
-    data = df.to_json(orient ='table')
+@app.route('/api/getSuburbcountdata', methods=['GET'])
+def getSuburbcountdata():  
+    df = getCSVData()
+    #Group by and count
+    df2 = df.groupby('official_suburb').agg(Count=('official_suburb','count')).reset_index().copy()
+    df2 = df2.sort_values('Count',ascending=False);
+    data = df2.to_json(orient ='table')
     return data
+
+# Commented out due to sr_hex.csv being to large for free public gihub repository with out large file support
+# Kept here for further local development and use
+# @app.route('/api/getAlldata', methods=['GET'])
+# def getAlldata():  
+#     df = getBigCSVData()
+#     data = df.to_json(orient ='table')
+#     return data
 
 # Commented out due to sr_hex.csv being to large for free public gihub repository with out large file support
 # Kept here for further local development and use
