@@ -44,6 +44,7 @@ def getsuburbcountdata():
     df = getCSVData()
     #Group by and count
     df2 = df.groupby(['official_suburb','h3_level8_index']).agg(Count=('official_suburb','count')).reset_index().copy()
+    df2 = df2.sort_values('Count',ascending=False);
     data = df2.to_json(orient ='table')
     return data
 
