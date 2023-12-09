@@ -14,11 +14,9 @@ PORT = 80
 # initialize flask application
 app = Flask(__name__)
 
-# cors = CORS(app, resources={r"/api/getsrdata": {"origins": "http://localhost:4200"}, r"/api/getgeojsondata": {"origins": "http://localhost:4200"}})
 cors = CORS(app, resources={r"/api/*": {"origins": "*"} })
 
 @app.route('/api/getsrdata', methods=['GET'])
-# @cross_origin(origin='localhost',headers=['Content- Type','Authorization'])
 def GetSRData():
     df = pd.read_csv('Data/sr_hex_filtered.csv')
 
@@ -28,12 +26,10 @@ def GetSRData():
     df = df.drop(columns='department')
     # df.to_csv('Data/sr_hex_filtered.csv')
 
-    #Group by and sum
+    #Group by and count
     df = df.groupby('official_suburb').count()
-
     data = df.to_json()
-    # data = convert_csv_json('Data/sr_hex.csv')
-    
+  
     
     return data
 
@@ -60,32 +56,7 @@ def getHexcountdata():
     return data
 
 
-# Commented out due to sr_hex.csv being to large for free public gihub repository with out large file support
-# Kept here for further local development and use
-# @app.route('/api/getAlldata', methods=['GET'])
-# def getAlldata():  
-#     df = getBigCSVData()
-#     data = df.to_json(orient ='table')
-#     return data
 
-# Commented out due to sr_hex.csv being to large for free public gihub repository with out large file support
-# Kept here for further local development and use
-# @app.route('/api/getDirectoratedata', methods=['GET'])
-# def getDirectoratedata():  
-#     df = getBigCSVData()
-#     data = pd.DataFrame(df['directorate'].unique()).to_json(orient ='table')
-#     return data
-
-# Commented out due to sr_hex.csv being to large for free public gihub repository with out large file support
-# Kept here for further local development and use
-# @app.route('/api/getDepartmentdata', methods=['GET'])
-# def getDepartmentdata():  
-#     query = request.args.getlist('directorate')
-#     print(query[0])
-#     df = getBigCSVData()
-#     df2 = df.query('directorate=="' + query[0] + '"').copy()
-#     data = pd.DataFrame(df2.department.unique()).to_json(orient ='table')
-#     return data
 
 @app.route('/api/getgeojsondata', methods=['GET'])
 def getgeoJsonData():
@@ -108,14 +79,6 @@ def convert_csv_json(csvFilePath):
             data[key] = rows
     return data
 
-# Commented out due to sr_hex.csv being to large for free public gihub repository with out large file support
-# Kept here for further local development and use
-# def getBigCSVData():
-#      # Get the csv
-#     df = pd.read_csv('Data/sr_hex.csv')
-#     df = df.drop(columns='notification_number')
-#     df = df.drop(columns='reference_number')
-#     return df
 
 def getCSVData():
     # Get the filtered csv
