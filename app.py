@@ -46,6 +46,7 @@ def getsuburbcountdata():
 
 
 
+
 @app.route('/api/getHexcountdata', methods=['GET'])
 def getHexcountdata():  
     df = getCSVData()
